@@ -49,7 +49,7 @@ A responsive e-commerce frontend inspired by Amazon, built with HTML, CSS, and J
 
 
 ## Folder Structure
-.
+/
 ├─ index.html                       # Products landing (amazon.html in project)
 ├─ amazon-clothing.html             # Clothing category page
 ├─ amazon-appliances.html           # Appliances category page
@@ -166,6 +166,7 @@ export function hideHeaderOnScroll() {
 }
 
 hideHeaderOnScroll();
+```
 
 ---
 
