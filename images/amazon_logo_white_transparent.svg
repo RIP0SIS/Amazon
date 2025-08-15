@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <g transform="translate(50, 200) scale(3)">
+    <!-- Amazon text (white) -->
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="24" fill="white" font-weight="bold">amazon</text>
+    <text x="92" y="0" font-family="Arial, sans-serif" font-size="24" fill="white">.in</text>
+    
+    <!-- Smile (orange arrow) -->
+    <path d="M8 8 C20 30, 80 30, 92 8" fill="none" stroke="#f90" stroke-width="5" />
+    <path d="M92 8 L88 12 M92 8 L88 4" stroke="#f90" stroke-width="2" fill="none" />
+  </g>
+</svg>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Amazon Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Load a font called Roboto from Google Fonts. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Here are the CSS files for this page. -->
+    <link rel="stylesheet" href="styles/shared/general.css" />
+    <link rel="stylesheet" href="styles/shared/amazon-header.css" />
+    <link rel="stylesheet" href="styles/pages/amazon.css" />
+    <link rel="stylesheet" href="styles/shared/amazon-second-header.css" />
+  </head>
+  <body>
+    <div class="amazon-header js-amazon-header">
+      <div class="amazon-header-left-section">
+        <a href="amazon.html" class="header-link">
+          <img class="amazon-logo" src="images/amazon-logo-white.png" />
+          <img
+            class="amazon-mobile-logo"
+            src="images/amazon-mobile-logo-white.png"
+          />
+        </a>
+      </div>
+
+      <div class="amazon-header-middle-section">
+        <input class="search-bar" type="text" placeholder="Search" />
+
+        <button class="search-button">
+          <img class="search-icon" src="images/icons/search-icon.png" />
+        </button>
+      </div>
+
+      <div class="amazon-header-right-section">
+        <a
+          class="flag-link header-link"
+          href="amazon-appliances.html"
+        >
+          <img class="flag-icon" src="images/flag.png" alt="flag" />
+          <span class="flag-text">EN</span>
+        </a>
+        <div class="language-selector">
+            <img src="images/icons/caret-down-white-icon.svg" alt="▼" class="caret-down-icon">
+          <div class="language-dropdown">
+            <div data-lang="en">English - EN</div>
+          </div>
+        </div>
+        <div class="orders-link header-link coming-soon">
+          <span class="returns-text">Returns</span>
+          <span class="orders-text">& Orders</span>
+          <div class="coming-soon-dropdown">
+            <div>Coming Soon</div>
+          </div>
+        </div>
+
+        <a class="cart-link header-link" href="checkout.html">
+          <img class="cart-icon" src="images/icons/cart-icon.png" />
+          <div class="cart-quantity js-cart-quantity"></div>
+          <div class="cart-text">Cart</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="amazon-second-header js-amazon-second-header">
+      <div class="secondary-header-left-section">
+        <a class="main-second-header-link" href="amazon.html">
+          <img class="hamburger-icon" src="images/Hamburger_icon_white.svg" alt="hamburger menu" />
+          <span class="hamburger-text">All</span>
+        </a>
+        <a class="second-header-link" href="amazon-clothing.html">Clothing</a>
+        <a class="second-header-link" href="amazon-appliances.html">Appliances</a>
+        <a class="second-header-link" href="amazon-shoes.html">Footwear</a>
+      </div>
+
+      <div class="secondary-header-right-section">
+        <a class="second-header-link" href="./images/appliance-instructions.png"
+        target="_blank">
+          Help
+        </a>
+      </div>
+
+    </div>
+
+    <div class="main">
+      <!-- Using js -->
+      <div class="products-grid js-products-grid">
+      </div>
+    </div>
+    <script type="module" src="./scripts/amazon-categories/amazon-appliances.js">//Then show it on webpage</script>
+
+  </body>
+</html>

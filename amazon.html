@@ -1,0 +1,172 @@
+<!-- 
+  Learning curve:
+  1) amazon.html
+  2) data/products.js    , save the data
+  3) scripts/amazon.js   , generate the html and make it available on the webpage(interactive)
+  4) data/cart.js        , Create a module, save the cart data
+  
+  5) scripts/checkout.js , Generate html ,Show the cart data on the checkout page using de-duplication
+  //Note after generating html in js we delete the repetitive code in html file.
+  6) scripts/utils/money.js , Create a module to format the money
+  7) scripts/cart.js , create delete functionality to the cart items
+  8) scripts/checkout.js , DOM the delete item using .remove()
+  9) data/cart.js , add localStorage to save the cart data
+  10) Load external libraries (dayjs) to show the delivery date
+  11) ESM(Ecmascript module) version of external libraries, work with js modules
+  12) scripts/checkout.js , add delivery options to the checkout page
+  13) scripts/checkout.js , add delivery date to the checkout page
+  14) data/cart.js , add a updateDeliveryOption function
+  15) scripts/checkout.js , add updateDeliveryOption function to the checkout page
+  16) scripts/checkout.js , render the page using functions - MVC design pattern: model view controller, (update the data, then regenerate the html(page))
+  note: Model = save and manage the data
+        View = takes the data and show it on the webpage
+        Controller = handle the user interactions and update the model and view (.event listeners)
+  many js frameworks is based on MVC
+
+  17) ./checkout/orderSummary.js and paymentSummary.js , create a module to generate the order and payment summary
+  18) ./checkout/paymentSummary.js , generate and update the payment summary
+  19) ./data/cart.js , add totalQuantity function to get the total quantity of items in the cart
+  20) ./checkout/paymentSummary.js , use totalQuantity function to show the total quantity of items in the cart
+  21) ./checkout/middleHeaderItem.js , create a module to show the cart quantity in the header
+  22) testing: manual testing(open the webpage and check if the cart quantity is correct)
+      automated testing: using code to test code
+  23) test/test.html , create a test file(automated testing)
+
+NOTE: Complete different exercise to make project more interactive
+
+  24) Testing frameworks: external lib to test the code
+      1. Jest: https://jestjs.io/docs/getting-started
+      2. Mocha: https://mochajs.org/
+      3. Jasmine: https://jasmine.github.io/ etc
+  25) tests-jasmine/test.html , create a test file using Jasmine, use diff functions
+  26) testing different codes, store the test in order of original folder structure
+
+  NOTE: Procedural programming: Organize code into functions
+  Object Oriented Programming: Organize code into objects, tries to represent real-world entities
+
+  26) data/cart-oop.js & cart-class.js , create a Cart class to manage the cart data
+  27) scripts/checkout.js , use the Cart class to manage the cart data
+  28) tests-jasmine/cart-class-test.js , create a test file to test the Cart class
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Amazon Project</title>
+
+    <!-- This code is needed for responsive design to work.
+      (Responsive design = make the website look good on
+      smaller screen sizes like a phone or a tablet). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Load a font called Roboto from Google Fonts. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Here are the CSS files for this page. -->
+    <link rel="stylesheet" href="styles/shared/general.css" />
+    <link rel="stylesheet" href="styles/shared/amazon-header.css" />
+    <link rel="stylesheet" href="styles/pages/amazon.css" />
+    <link rel="stylesheet" href="styles/shared/amazon-second-header.css" />
+  </head>
+  <body>
+    <div class="amazon-header js-amazon-header">
+      <div class="amazon-header-left-section">
+        <a href="amazon.html" class="header-link">
+          <img class="amazon-logo" src="images/amazon-logo-white.png" />
+          <img
+            class="amazon-mobile-logo"
+            src="images/amazon-mobile-logo-white.png"
+          />
+        </a>
+      </div>
+
+      <div class="amazon-header-middle-section">
+        <input class="search-bar" type="text" placeholder="Search" />
+
+        <button class="search-button">
+          <img class="search-icon" src="images/icons/search-icon.png" />
+        </button>
+      </div>
+
+      <div class="amazon-header-right-section">
+        <a
+          class="flag-link header-link"
+          href="amazon.html"
+        >
+          <img class="flag-icon" src="images/flag.png" alt="flag" />
+          <span class="flag-text">EN</span>
+        </a>   
+        <div class="language-selector">
+            <img src="images/icons/caret-down-white-icon.svg" alt="▼" class="caret-down-icon">
+          <div class="language-dropdown">
+            <div>English - EN</div>
+          </div>
+        </div>
+
+        <div class="orders-link header-link coming-soon">
+          <span class="returns-text">Returns</span>
+          <span class="orders-text">& Orders</span>
+          <div class="coming-soon-dropdown">
+            <div>Coming Soon</div>
+          </div>
+        </div>
+
+        <a class="cart-link header-link" href="checkout.html">
+          <img class="cart-icon" src="images/icons/cart-icon.png" />
+          <div class="cart-quantity js-cart-quantity"></div>
+          <div class="cart-text">Cart</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="amazon-second-header js-amazon-second-header">
+      <div class="secondary-header-left-section">
+        <a class="main-second-header-link" href="amazon.html">
+          <img class="hamburger-icon" src="images/Hamburger_icon_white.svg" alt="hamburger menu" />
+          <span class="hamburger-text">All</span>
+        </a>
+        <a class="second-header-link" href="amazon-clothing.html">Clothing</a>
+        <a class="second-header-link" href="amazon-appliances.html">Appliances</a>
+        <a class="second-header-link" href="amazon-shoes.html">Footwear</a>
+      </div>
+
+      <div class="secondary-header-right-section">
+        <a class="second-header-link" href="./images/appliance-instructions.png"
+        target="_blank">
+          Help
+        </a>
+      </div>
+
+    </div>
+
+    <div class="main">
+      <!-- Using js -->
+      <div class="products-grid js-products-grid">
+      </div>
+    </div>
+
+    <!-- Order matter : (use 'module' to bypass all this in an organized way)
+    Why does amazon.js know about products even though you didn’t import it?
+    Because of how script tags work in HTML. 
+    When you include multiple <script> tags in your HTML, the variables from earlier scripts become available to later ones — they’re added to the global window object(global scope).
+
+      1. cart.js
+      2. products.js
+      3. amazon.js
+
+      cart.js is needed to show the cart quantity.
+      products.js is needed to load the products.
+      amazon.js is needed to show the products on the webpage.
+    -->
+
+    <!-- <script src="data/products.js">//First load the product</script>   --> 
+
+    <script type="module" src="scripts/amazon.js">//Then show it on webpage</script>
+
+  </body>
+</html>

@@ -1,0 +1,81 @@
+.amazon-second-header {
+  background-color: #232F3E;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 36px;
+}
+
+.main {
+  margin-top: 96px;
+}
+
+.amazon-header{
+  position: fixed;
+  z-index: 600;
+}
+
+.amazon-second-header {
+  position: fixed;
+  z-index: 500;
+}
+
+.amazon-header,
+.amazon-second-header {
+  transition: transform 0.3s ease-in-out;
+}
+
+.header-hidden.amazon-header {
+  transform: translateY(-60px);
+}
+
+.header-hidden.amazon-second-header {
+  transform: translateY(-96px);
+}
+
+.hamburger-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.secondary-header-left-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.main-second-header-link{
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.second-header-link{
+  display: inline-block;
+  padding: 4px;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.second-header-link:hover, .main-second-header-link:hover {
+  border: 1px solid white;
+}
