@@ -49,51 +49,34 @@ A responsive e-commerce frontend inspired by Amazon, built with HTML, CSS, and J
 
 
 ## Folder Structure
-/
-├─ index.html                       # Products landing (amazon.html in project)
-├─ amazon-clothing.html             # Clothing category page
-├─ amazon-appliances.html           # Appliances category page
-├─ amazon-shoes.html                # Footwear category page
-├─ checkout.html                    # Checkout page
-├─ spec-runner.html                 # Jasmine test runner
-│
-├─ scripts/
-│  ├─ amazon.js                     # Entry for main page
-│  ├─ amazon-categories/
-│  │  ├─ amazon-appliances.js
-│  │  ├─ amazon-clothing.js
-│  │  └─ amazon-shoes.js
-│  ├─ amazon/
-│  │  ├─ renderProductsGrid.js
-│  │  ├─ updateCartQuantity.js
-│  │  └─ hideHeader.js
-│  ├─ checkout/
-│  │  ├─ orderSummary.js
-│  │  ├─ paymentSummary.js
-│  │  └─ middleHeaderItem.js
-│  └─ utils/
-│     └─ money.js
+```
+amazon-clone/
 │
 ├─ data/
-│  ├─ products.js
-│  ├─ cart.js
-│  ├─ deliveryOptions.js
-│  └─ (tests: cartTest.js, productTest.js, etc.)
+│   ├─ cart.js
+│   ├─ deliveryOptions.js
+│   ├─ products.js
+│   ├─ cartTest.js
+│   └─ productTest.js
+│
+├─ scripts/
+│   ├─ checkout/
+│   │   ├─ orderSummary.js
+│   │   └─ paymentSummary.js
+│   └─ utils/
+│       └─ money.js
 │
 ├─ styles/
-│  ├─ shared/
-│  │  ├─ general.css
-│  │  ├─ amazon-header.css
-│  │  └─ amazon-second-header.css
-│  └─ pages/
-│     ├─ amazon.css
-│     └─ checkout/
-│        ├─ checkout.css
-│        └─ checkout-header.css
+│   ├─ main.css
+│   ├─ checkout.css
+│   └─ header.css
 │
-├─ lib/
-│  └─ jasmine-5.1.1/                 # Jasmine distribution used by spec-runner.html
-└─ README.md
+├─ tests/
+│   └─ test.html  ← Jasmine Spec Runner
+│
+├─ checkout.html
+└─ index.html
+```
 
 
 ---
