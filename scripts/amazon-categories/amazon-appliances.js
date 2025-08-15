@@ -4,9 +4,9 @@ import { renderProductsGrid } from "../amazon/renderProductsGrid.js";
 import { products } from "../../data/products.js";
 
 hideHeaderOnScroll();
-
 updateCartQuantity();
 
+// Filter only appliance products and render them
 const applianceItems = products.filter(
   (p) => p.keywords && p.keywords.includes("appliances")
 );

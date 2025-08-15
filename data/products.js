@@ -4,7 +4,10 @@ export function getProduct(productId) {
   return products.find(product => product.id === productId);
 }
 
-export class Products {  //convert objects to class
+/**
+ * Base product class representing generic product properties and methods.
+ */
+export class Products {
   id;
   image;
   name;
@@ -12,7 +15,7 @@ export class Products {  //convert objects to class
   price;
   keywords;
   
-  constructor(productDetails){
+  constructor(productDetails) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
@@ -21,25 +24,26 @@ export class Products {  //convert objects to class
     this.keywords = productDetails.keywords;
   }
 
+  /** Returns the URL of the product's rating stars image. */
   getStarsUrl() {
     return `images/ratings/rating-${this.rating.stars * 10}.png`;
   }
 
+  /** Returns the formatted price string. */
   getPrice() {
     return `${formatCurrency(this.price)}`;
   }
 
+  /** Returns additional HTML info specific to the product type (default empty). */
   extraInfoHTML() {
     return '';
   }
 }
-
-/*
-Inheritance: let us reuse the code in the parent class
-super() calls the constructor of the parent class
-*/
-
-class Clothing extends Products { //add data using 'type' , discriminator property
+/**
+ * Clothing product subclass with size chart support.
+ * Inherits from Products.
+ */
+class Clothing extends Products {
   sizeChartLink;
 
   constructor(productDetails) {
@@ -48,7 +52,7 @@ class Clothing extends Products { //add data using 'type' , discriminator proper
     this.type = productDetails.type;
   }
 
-  //method overriding
+  /** Returns size chart link HTML for clothing items. */
   extraInfoHTML() {
     return `
       <a href="${this.sizeChartLink}" target="_blank" class="size-chart-link">
@@ -58,43 +62,11 @@ class Clothing extends Products { //add data using 'type' , discriminator proper
   }
 }
 
-/*
-Built-in Date object to get current date & time
-const date = new Date();
-console.log(date.toLocaleDateString());
+/**
+ * Array of product instances (Products or Clothing).
+ * Clothing items include size chart information.
+ */
 
-*Use of 'this'
-console.log(this); //undefined
-
-const object = {
-  name: "Object",
-  b: this.name //undefined cause object is not created yet
-}; 
-
-
-function logThis() {
-  console.log(this);
-}
-console.log(logThis()); //undefined
-console.log(logThis.call('hello')); //hello, set value of 'this' to an object
-
-
-const object2 = {
-  method: () => {
-    console.log(this); // same as outside of arrow function, prevents 'this' from being overridden
-  }
-}
-object2.method(); //undefined
-
-SUMMARY:-
-1. Inside a method in obj, "this" points to the outer object
-2. Inside a function, this = undefined
-But we can change it
-3. Arrow functions, do not change the value of "this"
-*/
-
-
-//data structure
 export const products = [
   {
     id: "bc2fc1b4-91f7-4b3a-9e0a-0e4a9c02d917",
@@ -113,6 +85,147 @@ export const products = [
     ]
   },
   {
+    id: "d2785924-743d-49b3-8f03-ec258e640503",
+    image: "images/products/women-chunky-beanie-gray.webp",
+    name: "Women's Chunky Cable Beanie - Gray",
+    rating: {
+      stars: 5,
+      count: 83
+    },
+    price: 1250,
+    keywords: [
+      "hats",
+      "winter hats",
+      "beanies",
+      "tuques",
+      "apparel",
+      "womens"
+    ]
+  },
+  {
+    id: "ee1f7c56-f977-40a4-9642-12ba5072e2b0",
+    image: "images/products/men-chino-pants-beige.jpg",
+    name: "Men's Classic-fit Pleated Chino Pants",
+    rating: {
+      stars: 4.5,
+      count: 9017
+    },
+    price: 2290,
+    keywords: [
+      "pants",
+      "apparel",
+      "mens"
+    ]
+  },
+  {
+    id: "1c079479-8586-494f-ab53-219325432536",
+    image: "images/products/men-athletic-shoes-green.jpg",
+    name: "Men's Athletic Sneaker",
+    rating: {
+      stars: 4,
+      count: 229
+    },
+    price: 3890,
+    keywords: [
+      "shoes",
+      "running shoes",
+      "footwear",
+      "mens"
+    ]
+  },
+  {
+    id: "4df68c27-fd59-4a6a-bbd1-e754ddb6d53c",
+    image: "images/products/men-navigator-sunglasses-brown.jpg",
+    name: "Men's Navigator Sunglasses Pilot",
+    rating: {
+      stars: 3.5,
+      count: 42
+    },
+    price: 1690,
+    keywords: [
+      "sunglasses",
+      "glasses",
+      "accessories",
+      "shades"
+    ]
+  },
+  {
+    id: "4e37dd03-3b23-4bc6-9ff8-44e112a92c64",
+    image: "images/products/non-stick-cooking-set-15-pieces.webp",
+    name: "Non-Stick Cookware Set, Pots, Pans and Utensils - 15 Pieces",
+    rating: {
+      stars: 4.5,
+      count: 511
+    },
+    price: 6797,
+    keywords: [
+      "cooking set",
+      "kitchen"
+    ]
+  },
+  {
+    id: "a434b69f-1bc1-482d-9ce7-cd7f4a66ce8d",
+    image: "images/products/vanity-mirror-silver.jpg",
+    name: "Vanity Mirror with Heavy Base - Chrome",
+    rating: {
+      stars: 4.5,
+      count: 130
+    },
+    price: 1649,
+    keywords: [
+      "bathroom",
+      "washroom",
+      "mirrors",
+      "home"
+    ]
+  },
+  {
+    id: "a45cfa0a-66d6-4dc7-9475-e2b01595f7d7",
+    image: "images/products/women-french-terry-fleece-jogger-camo.jpg",
+    name: "Women's Fleece Jogger Sweatpant",
+    rating: {
+      stars: 4.5,
+      count: 248
+    },
+    price: 2400,
+    keywords: [
+      "pants",
+      "sweatpants",
+      "jogging",
+      "apparel",
+      "womens"
+    ]
+  },
+  {
+    id: "d339adf3-e004-4c20-a120-40e8874c66cb",
+    image: "images/products/double-elongated-twist-french-wire-earrings.webp",
+    name: "Double Oval Twist French Wire Earrings - Gold",
+    rating: {
+      stars: 4.5,
+      count: 117
+    },
+    price: 2400,
+    keywords: [
+      "accessories",
+      "womens"
+    ]
+  },
+  {
+    id: "d37a651a-d501-483b-aae6-a9659b0757a0",
+    image: "images/products/round-airtight-food-storage-containers.jpg",
+    name: "Round Airtight Food Storage Containers - 5 Piece",
+    rating: {
+      stars: 4,
+      count: 126
+    },
+    price: 2899,
+    keywords: [
+      "boxes",
+      "food containers",
+      "kitchen"
+    ]
+  },
+  {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
     name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
@@ -125,6 +238,83 @@ export const products = [
       "socks",
       "sports",
       "apparel"
+    ]
+  },
+  {
+    id: "b86ddc8b-3501-4b17-9889-a3bad6fb585f",
+    image: "images/products/trash-can-with-foot-pedal-50-liter.jpg",
+    name: "Trash Can with Foot Pedal - Brushed Stainless Steel",
+    rating: {
+      stars: 4.5,
+      count: 2286
+    },
+    price: 8300,
+    keywords: [
+      "garbage",
+      "bins",
+      "cans",
+      "kitchen"
+    ]
+  },
+  {
+    id: "19c6a64a-5463-4d45-9af8-e41140a4100c",
+    image: "images/products/duvet-cover-set-blue-twin.jpg",
+    name: "Duvet Cover Set with Zipper Closure",
+    rating: {
+      stars: 4,
+      count: 456
+    },
+    price: 2399,
+    keywords: [
+      "bedroom",
+      "bed sheets",
+      "sheets",
+      "covers",
+      "home"
+    ]
+  },
+  {
+    id: "0d7f9afa-2efe-4fd9-b0fd-ba5663e0a524",
+    image: "images/products/coffeemaker-with-glass-carafe-black.jpg",
+    name: "Coffeemaker with Glass Carafe and Reusable Filter - 25 Oz, Black",
+    rating: {
+      stars: 4.5,
+      count: 1211
+    },
+    price: 2250,
+    keywords: [
+      "coffeemakers",
+      "kitchen",
+      "appliances"
+    ]
+  },
+  {
+    id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
+    image: "images/products/blackout-curtains-black.jpg",
+    name: "Blackout Curtains Set 42 x 84-Inch - Black, 2 Panels",
+    rating: {
+      stars: 4.5,
+      count: 363
+    },
+    price: 3099,
+    keywords: [
+      "bedroom",
+      "home"
+    ]
+  },
+  {
+    id: "8a53b080-6d40-4a65-ab26-b24ecf700bce",
+    image: "images/products/cotton-bath-towels-teal.webp",
+    name: "100% Cotton Bath Towels - 2 Pack, Light Teal",
+    rating: {
+      stars: 4.5,
+      count: 93
+    },
+    price: 2110,
+    keywords: [
+      "bathroom",
+      "home",
+      "towels"
     ]
   },
   {
@@ -477,224 +667,6 @@ export const products = [
     sizeChartLink: "images/clothing-size-chart.png"
   },
   {
-    id: "b86ddc8b-3501-4b17-9889-a3bad6fb585f",
-    image: "images/products/trash-can-with-foot-pedal-50-liter.jpg",
-    name: "Trash Can with Foot Pedal - Brushed Stainless Steel",
-    rating: {
-      stars: 4.5,
-      count: 2286
-    },
-    price: 8300,
-    keywords: [
-      "garbage",
-      "bins",
-      "cans",
-      "kitchen"
-    ]
-  },
-  {
-    id: "19c6a64a-5463-4d45-9af8-e41140a4100c",
-    image: "images/products/duvet-cover-set-blue-twin.jpg",
-    name: "Duvet Cover Set with Zipper Closure",
-    rating: {
-      stars: 4,
-      count: 456
-    },
-    price: 2399,
-    keywords: [
-      "bedroom",
-      "bed sheets",
-      "sheets",
-      "covers",
-      "home"
-    ]
-  },
-  {
-    id: "d2785924-743d-49b3-8f03-ec258e640503",
-    image: "images/products/women-chunky-beanie-gray.webp",
-    name: "Women's Chunky Cable Beanie - Gray",
-    rating: {
-      stars: 5,
-      count: 83
-    },
-    price: 1250,
-    keywords: [
-      "hats",
-      "winter hats",
-      "beanies",
-      "tuques",
-      "apparel",
-      "womens"
-    ]
-  },
-  {
-    id: "ee1f7c56-f977-40a4-9642-12ba5072e2b0",
-    image: "images/products/men-chino-pants-beige.jpg",
-    name: "Men's Classic-fit Pleated Chino Pants",
-    rating: {
-      stars: 4.5,
-      count: 9017
-    },
-    price: 2290,
-    keywords: [
-      "pants",
-      "apparel",
-      "mens"
-    ]
-  },
-  {
-    id: "1c079479-8586-494f-ab53-219325432536",
-    image: "images/products/men-athletic-shoes-green.jpg",
-    name: "Men's Athletic Sneaker",
-    rating: {
-      stars: 4,
-      count: 229
-    },
-    price: 3890,
-    keywords: [
-      "shoes",
-      "running shoes",
-      "footwear",
-      "mens"
-    ]
-  },
-  {
-    id: "4df68c27-fd59-4a6a-bbd1-e754ddb6d53c",
-    image: "images/products/men-navigator-sunglasses-brown.jpg",
-    name: "Men's Navigator Sunglasses Pilot",
-    rating: {
-      stars: 3.5,
-      count: 42
-    },
-    price: 1690,
-    keywords: [
-      "sunglasses",
-      "glasses",
-      "accessories",
-      "shades"
-    ]
-  },
-  {
-    id: "4e37dd03-3b23-4bc6-9ff8-44e112a92c64",
-    image: "images/products/non-stick-cooking-set-15-pieces.webp",
-    name: "Non-Stick Cookware Set, Pots, Pans and Utensils - 15 Pieces",
-    rating: {
-      stars: 4.5,
-      count: 511
-    },
-    price: 6797,
-    keywords: [
-      "cooking set",
-      "kitchen"
-    ]
-  },
-  {
-    id: "a434b69f-1bc1-482d-9ce7-cd7f4a66ce8d",
-    image: "images/products/vanity-mirror-silver.jpg",
-    name: "Vanity Mirror with Heavy Base - Chrome",
-    rating: {
-      stars: 4.5,
-      count: 130
-    },
-    price: 1649,
-    keywords: [
-      "bathroom",
-      "washroom",
-      "mirrors",
-      "home"
-    ]
-  },
-  {
-    id: "a45cfa0a-66d6-4dc7-9475-e2b01595f7d7",
-    image: "images/products/women-french-terry-fleece-jogger-camo.jpg",
-    name: "Women's Fleece Jogger Sweatpant",
-    rating: {
-      stars: 4.5,
-      count: 248
-    },
-    price: 2400,
-    keywords: [
-      "pants",
-      "sweatpants",
-      "jogging",
-      "apparel",
-      "womens"
-    ]
-  },
-  {
-    id: "d339adf3-e004-4c20-a120-40e8874c66cb",
-    image: "images/products/double-elongated-twist-french-wire-earrings.webp",
-    name: "Double Oval Twist French Wire Earrings - Gold",
-    rating: {
-      stars: 4.5,
-      count: 117
-    },
-    price: 2400,
-    keywords: [
-      "accessories",
-      "womens"
-    ]
-  },
-  {
-    id: "d37a651a-d501-483b-aae6-a9659b0757a0",
-    image: "images/products/round-airtight-food-storage-containers.jpg",
-    name: "Round Airtight Food Storage Containers - 5 Piece",
-    rating: {
-      stars: 4,
-      count: 126
-    },
-    price: 2899,
-    keywords: [
-      "boxes",
-      "food containers",
-      "kitchen"
-    ]
-  },
-  {
-    id: "0d7f9afa-2efe-4fd9-b0fd-ba5663e0a524",
-    image: "images/products/coffeemaker-with-glass-carafe-black.jpg",
-    name: "Coffeemaker with Glass Carafe and Reusable Filter - 25 Oz, Black",
-    rating: {
-      stars: 4.5,
-      count: 1211
-    },
-    price: 2250,
-    keywords: [
-      "coffeemakers",
-      "kitchen",
-      "appliances"
-    ]
-  },
-  {
-    id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
-    image: "images/products/blackout-curtains-black.jpg",
-    name: "Blackout Curtains Set 42 x 84-Inch - Black, 2 Panels",
-    rating: {
-      stars: 4.5,
-      count: 363
-    },
-    price: 3099,
-    keywords: [
-      "bedroom",
-      "home"
-    ]
-  },
-  {
-    id: "8a53b080-6d40-4a65-ab26-b24ecf700bce",
-    image: "images/products/cotton-bath-towels-teal.webp",
-    name: "100% Cotton Bath Towels - 2 Pack, Light Teal",
-    rating: {
-      stars: 4.5,
-      count: 93
-    },
-    price: 2110,
-    keywords: [
-      "bathroom",
-      "home",
-      "towels"
-    ]
-  },
-  {
     id: "10ed8504-57db-433c-b0a3-fc71a35c88a1",
     image: "images/products/knit-athletic-sneakers-pink.webp",
     name: "Waterproof Knit Athletic Sneakers - Pink",
@@ -780,25 +752,3 @@ export const products = [
   }
   return new Products(productDetails);
 });
-
-
-
-/*
-//Load products from backend
-export let products = [];
-
-export function loadProducts(fun) {
-  const xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', () =>{
-    products = JSON.parse(xhr.response).map((productDetails) => {
-      if (productDetails.type === 'clothing') {
-        return new Clothing (productDetails);
-      }
-      return new Products (productDetails);
-    });
-    fun();
-  });
-  xhr.open('GET', 'https://supersimplebackend.dev/products');
-  xhr.send();
-}
-*/

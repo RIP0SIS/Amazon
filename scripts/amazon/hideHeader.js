@@ -4,21 +4,20 @@ export function hideHeaderOnScroll() {
   const secondHeader = document.querySelector('.js-amazon-second-header');
 
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;  //Y-axis
+    const currentScroll = window.scrollY;
 
     if (currentScroll > lastScrollTop) {
-      // Scrolling down → hide headers
+      // Hide headers when scrolling down
       header.classList.add('header-hidden');
       secondHeader.classList.add('header-hidden');
     } else {
-      // Scrolling up → show headers
+      // Show headers when scrolling up
       header.classList.remove('header-hidden');
       secondHeader.classList.remove('header-hidden');
     }
 
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Avoid negative scroll values
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative values
   });
 }
 
 hideHeaderOnScroll();
-

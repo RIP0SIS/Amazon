@@ -4,9 +4,8 @@ export default function renderCheckoutHeader() {
   const cartQuantity = totalQuantity();
   const middleHeaderItem = document.querySelector(".js-checkout-header-middle-section");
 
-  // Not exist
-  if(!middleHeaderItem) return;
-  // If cart is empty
+  if (!middleHeaderItem) return;
+
   if (cartQuantity === 0) {
     middleHeaderItem.innerHTML = `
       Checkout (<a class="return-to-home-link" href="amazon.html">No items</a>)
@@ -20,6 +19,6 @@ export default function renderCheckoutHeader() {
   }
 }
 
+// Initialize and update on cart changes
 renderCheckoutHeader();
-
 window.addEventListener('cartUpdated', renderCheckoutHeader);

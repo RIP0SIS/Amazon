@@ -4,10 +4,10 @@ import { renderProductsGrid } from "../amazon/renderProductsGrid.js";
 import { products } from "../../data/products.js";
 
 hideHeaderOnScroll();
-
 updateCartQuantity();
 
-const applianceItems = products.filter(
+// Filter footwear products and render them
+const footwearItems = products.filter(
   (p) => p.keywords && p.keywords.includes("footwear")
 );
-renderProductsGrid(applianceItems);
+renderProductsGrid(footwearItems);
