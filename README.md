@@ -1,115 +1,119 @@
-# Amazon Clone – E-Commerce Frontend
-
+Amazon Clone – E-Commerce Frontend
 A responsive e-commerce frontend inspired by Amazon, built with HTML, CSS, and JavaScript. Features a fully functional shopping cart, checkout page, and interactive product listings with unit and integration tests using Jasmine.
 
----
+Table of Contents
+Demo
 
-## Table of Contents
-- [Demo](#demo)
-- [Features](#features)
-- [Folder Structure](#folder-structure)
-- [Technologies Used](#technologies-used)
-- [Setup & Installation](#setup--installation)
-- [Testing](#testing)
-- [Functionality Details](#functionality-details)
-- [Responsive Design](#responsive-design)
-- [License](#license)
+Features
 
----
+Folder Structure
 
-## Demo
-![alt text](image.png)
+Technologies Used
 
----
+Setup & Installation
 
-## Features
-- Fully functional cart system
-- Add, remove, and update product quantities
-- Persistent storage using `localStorage`
-- Checkout page with order summary and payment summary
-- Dynamic delivery option selection
-- Responsive product grid layout
-- Sticky header with hide-on-scroll effect
-- Product price formatting and ratings display
-- Unit and integration tests for key features
+Testing
 
----
+Functionality Details
 
-## Folder Structure
+Responsive Design
+
+License
+
+Demo
+A quick look at the project's main page.
+
+Features
+Fully functional cart system: Add, remove, and update product quantities.
+
+Persistent Storage: Cart data is saved to localStorage, so it persists across sessions.
+
+Dynamic Checkout Page: An order summary and payment summary that update in real-time.
+
+Delivery Options: Users can select different delivery dates for each item.
+
+Responsive Product Grid: The layout adapts smoothly to different screen sizes.
+
+Interactive Header: The header is sticky and hides on scroll for a better user experience.
+
+Clean UI: Product prices are formatted, and ratings are displayed as star icons.
+
+Tested Code: Includes unit and integration tests for key features using the Jasmine framework.
+
+Folder Structure
 amazon-clone/
 │
-├─ data/
-│ ├─ cart.js
-│ ├─ deliveryOptions.js
-│ ├─ products.js
-│ ├─ cartTest.js
-│ └─ productTest.js
+├── data/
+│   ├── cart.js
+│   ├── deliveryOptions.js
+│   ├── products.js
+│   ├── cartTest.js
+│   └── productTest.js
 │
-├─ scripts/
-│ ├─ checkout/
-│ │ ├─ orderSummary.js
-│ │ └─ paymentSummary.js
-│ └─ utils/
-│ └─ money.js
+├── scripts/
+│   ├── checkout/
+│   │   ├── orderSummary.js
+│   │   └── paymentSummary.js
+│   └── utils/
+│       └── money.js
 │
-├─ styles/
-│ ├─ main.css
-│ ├─ checkout.css
-│ └─ header.css
+├── styles/
+│   ├── main.css
+│   ├── checkout.css
+│   └── header.css
 │
-├─ tests/
-│ └─ test.html  ← Jasmine Spec Runner
+├── tests/
+│   └── test.html          ← Jasmine Spec Runner
 │
-├─ checkout.html
-└─ index.html 
+├── checkout.html
+└── index.html
+Technologies Used
+HTML5 & CSS3: For structuring and styling the web pages, including modern features like CSS Grid for responsive layouts.
 
----
+JavaScript (ES6 Modules): For all interactive features, cart functionality, and DOM manipulation.
 
-## Technologies Used
-- **HTML5 & CSS3** – markup and styling, including responsive design and CSS Grid
-- **JavaScript (ES6 Modules)** – interactive features, cart functionality, and utilities
-- **Jasmine 5** – unit and integration testing
+Jasmine 5: A behavior-driven development framework for testing JavaScript code.
 
----
+Setup & Installation
+1. Clone the repository
 
-## Setup & Installation
-**1. Clone the repository**
-```bash
+Bash
+
 git clone https://github.com/yourusername/amazon-clone.git
 cd amazon-clone
+2. Open the Project
 
+Product listing page: Open index.html in your browser.
 
-**2. Open the Project
+Checkout page: Open checkout.html in your browser.
 
-- **Product listing page:** Open `index.html` in your browser.  
-- **Checkout page:** Open `checkout.html` in your browser.
+3. Run Tests
 
+Open tests/test.html in your browser to view the Jasmine test results.
 
-**3. Run Tests
+Testing
+The project includes a comprehensive test suite to ensure reliability and maintainability.
 
-- Open `spec-runner.html` in your browser to view **Jasmine** test results.
+Unit Tests
+Cart System: Covers addToCart, removeFromCart, and updateDeliveryOption functions to ensure they modify the cart data correctly.
 
----
+Products Class: Verifies that product properties, price formatting, and rating star generation work as expected.
 
-## Testing
+Money Utility: Tests the formatCurrency function to ensure numbers are correctly converted to a currency string.
 
-### Unit Tests
-- **Cart system:** `addToCart`, `removeFromCart`, `updateDeliveryOption`
-- **Products class:** properties, price formatting, and rating stars
-- **Money utility:** formats numbers as currency
+Integration Tests
+Order Summary: Ensures that the summary section on the checkout page renders products from the cart correctly.
 
-### Integration Tests
-- **Order summary:** renders products from cart correctly
-- **Delivery option updates:** updates both UI and cart object
-- **Payment summary:** calculates total price dynamically
+Delivery Option Updates: Verifies that changing a delivery option updates both the UI and the underlying cart object.
 
----
+Payment Summary: Confirms that the payment summary dynamically calculates and displays the correct subtotal, taxes, and total price.
 
-## Functionality Details
+Functionality Details
+Sticky Header with Scroll
+The header is designed to hide when the user scrolls down and reappear when they scroll up, maximizing screen space for content.
 
-### Sticky Header with Scroll
+JavaScript
 
-```javascript
 export function hideHeaderOnScroll() {
   let lastScrollTop = 0;
   const header = document.querySelector('.js-amazon-header');
@@ -129,26 +133,27 @@ export function hideHeaderOnScroll() {
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
   });
 }
+
 hideHeaderOnScroll();
+Cart Features
+Increment or decrement the quantity of a product directly from the cart.
 
----
+Remove a product entirely from the cart.
 
-## Cart Features
-- Increment/decrement quantity
-- Remove product
-- Persistent storage in `localStorage`
+Cart state is saved in localStorage, preserving it between page loads and browser sessions.
 
----
+Checkout Page
+Order Summary: Lists all products in the cart, along with their quantities and delivery options.
 
-## Checkout Page
-- **Order summary:** shows products, quantities, delivery options
-- **Payment summary:** subtotal, taxes, total price
-- **Dynamic updates:** selecting delivery options updates cart and totals
+Payment Summary: Displays a breakdown of the subtotal, shipping fees, taxes, and the final total.
 
----
+Dynamic Updates: Selecting different delivery options instantly updates the cart data and recalculates the payment summary.
 
-## Responsive Design
-- **Products page:** responsive grid using `repeat()` and media queries
-- **Checkout page:** grid layout adapts to smaller screens
-- **Header:** hides on scroll and collapses logos on mobile
+Responsive Design
+The application is fully responsive and optimized for a seamless experience on all devices.
 
+Products Page: Uses CSS Grid's repeat() function and media queries to create a flexible grid that adjusts to different screen widths.
+
+Checkout Page: The two-column grid layout collapses into a single column on smaller screens for better readability.
+
+Header: The header logo and navigation elements adapt to mobile viewports.
