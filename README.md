@@ -140,7 +140,7 @@ async function createOrder(cart) {
   const order = await response.json();
   console.log('Order created:', order);
 }
-
+```
 ---
 
 ## Setup & Installation
