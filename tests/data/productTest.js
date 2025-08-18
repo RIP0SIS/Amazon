@@ -3,34 +3,36 @@ import { products, Products } from '../../data/products.js';
 describe('test suite: Products class', () => {
   it('has correct properties and methods', () => {
     const productDetails = {
-      id: "bc2fc1b4-91f7-4b3a-9e0a-0e4a9c02d917",
-      image: "images/products/Lifelong-Fitpro.jpg",
-      name: "Lifelong FitPro LLTM09",
+      id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+      image: "images/products/athletic-cotton-socks-6-pairs.jpg",
+      name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
       rating: {
-        stars: 4.0,
-        count: 6699,
+        stars: 4.5,
+        count: 87
       },
-      price: 14999,
+      priceCents: 1090,
       keywords: [
-        "fitness",
-        "treadmill",
-        "exercise",
+        "socks",
+        "sports",
+        "apparel"
       ]
     };
 
     const product = new Products(productDetails);
 
-    // Properties
-    expect(product.id).toEqual("bc2fc1b4-91f7-4b3a-9e0a-0e4a9c02d917");
-    expect(product.image).toEqual("images/products/Lifelong-Fitpro.jpg");
-    expect(product.name).toEqual("Lifelong FitPro LLTM09");
-    expect(product.rating).toEqual({ stars: 4.0, count: 6699 });
-    expect(product.price).toEqual(14999);
-    expect(product.keywords).toEqual(["fitness","treadmill", "exercise",]);
+    // Check product properties
+    expect(product.id).toEqual("e43638ce-6aa0-4b85-b27f-e1d07eb678c6");
+    expect(product.image).toEqual("images/products/athletic-cotton-socks-6-pairs.jpg");
+    expect(product.name).toEqual("Black and Gray Athletic Cotton Socks - 6 Pairs");
+    expect(product.rating).toEqual({ stars: 4.5, count: 87 });
+    expect(product.priceCents).toEqual(1090);
+    expect(product.keywords).toEqual(["socks",
+        "sports",
+        "apparel"]);
 
-    // Methods
-    expect(product.getStarsUrl()).toEqual("images/ratings/rating-40.png");
-    expect(product.getPrice()).toEqual("₹14,999.00");
+    // Check product methods
+    expect(product.getStarsUrl()).toEqual("images/ratings/rating-45.png");
+    expect(product.getPrice()).toEqual("₹1,090.00");
     expect(product.extraInfoHTML()).toEqual('');
   });
 });

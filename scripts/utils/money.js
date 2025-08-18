@@ -8,7 +8,7 @@ export function formatCurrency(amount) {
   }
 
   return `₹${Number(amount.toFixed(2)).toLocaleString("en-IN", {
-    minimumFractionDigits: 2
+  minimumFractionDigits: 2
   })}`;
 }
 

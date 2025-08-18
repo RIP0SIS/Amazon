@@ -1,39 +1,59 @@
-import { products } from "../../data/products.js";
-import { formatCurrency } from "../utils/money.js";
+import { products, loadProductsAsyncFetch } from "../../data/products.js";
 import { addToCart } from "../../data/cart.js";
+import productSearch from "./productSearch.js";
 
-/**
- * Renders the product grid on the webpage.
- */
-export function renderProductsGrid(items = products) {
-
+// Render product grid (with search & filtering support)
+export async function renderProductsGrid(items = products) {
   let productsHTML = "";
 
-  // Generate HTML for each product item
-  items.forEach((product) => {
+  // Load products if not already available
+  if (!products || products.length === 0) {
+    await loadProductsAsyncFetch();
+    items = products;
+  }
+
+  const url = new URL(window.location.href);
+  const search = url.searchParams.get('search');
+
+  let filteredProducts = items;
+
+  // Filter products by search query
+  if (search) {
+    filteredProducts = products.filter((product) => {
+      const name = product.name.toLowerCase();
+      return name.includes(search.toLowerCase());
+    });
+  }
+
+  // Build product cards
+  filteredProducts.forEach((product) => {
     productsHTML += `
-      <div class="product-container">
+      <div class="product-container" data-product-id="${product.id}">
         <div class="product-image-container">
           <img
-            class="product-image"
+            class="product-image js-product-image"
             src="${product.image}"
           />
         </div>
+
         <div class="product-name limit-text-to-2-lines">
           ${product.name}
         </div>
+
         <div class="product-rating-container">
           <img
             class="product-rating-stars"
             src="${product.getStarsUrl()}"
           />
-          <div class="product-rating-count link-primary">${product.rating.count.toLocaleString(
-            "en-IN"
-          )}</div>
+          <div class="product-rating-count link-primary">
+            ${product.rating.count.toLocaleString("en-IN")}
+          </div>
         </div>
+
         <div class="product-price">
           ${product.getPrice()}
         </div>
+
         <div class="product-quantity-container">
           <select class="js-quantity-selector" data-product-id="${product.id}">
             <option selected value="1">1</option>
@@ -51,47 +71,62 @@ export function renderProductsGrid(items = products) {
 
         ${
           product.keywords.includes("appliances")
-            ? `<a href="../../images/appliance-warranty.png" target = '_blank' class="size-chart-link">Warranty</a>`
+            ? `<a href="../../images/appliance-warranty.png" target='_blank' class="size-chart-link">Warranty</a>`
             : ""
         }
 
-        ${product.extraInfoHTML()} <!-- Polymorphic method to add extra details -->
+        ${ 
+          product.extraInfoHTML() // Uses polymorphism: object decides what extra info to render
+        }
 
         ${
           product.keywords.includes("shoes")
-            ? `<a href="../../images/shoe_size_chart.png" target = '_blank' class="size-chart-link">Size</a>`
+            ? `<a href="../../images/shoe_size_chart.png" target='_blank' class="size-chart-link">Size</a>`
             : ""
         }
         
         <div class="product-spacer"></div>
+
         <div class="added-to-cart js-added-to-cart-${product.id}">
           <img src="images/icons/check-mark.png" />
           Added
         </div>
-        <button class="add-to-cart-button button-primary js-add-to-cart-button" data-product-id="${
-          product.id
-        }">Add to Cart</button>
+
+        <button 
+          class="add-to-cart-button button-primary js-add-to-cart-button" 
+          data-product-id="${product.id}" 
+          data-product-name="${product.name}">
+          Add to Cart
+        </button>
       </div>
     `;
   });
 
-  // Insert generated product HTML into the DOM
+  // Handle empty search results
+  if (filteredProducts === undefined || filteredProducts.length == 0) {
+    document.querySelector('.js-products-grid')
+      .innerHTML = '<div class="empty-results-message"> No products matched your search. </div>';
+
+    return productSearch();
+  }
+
+  // Insert product cards into DOM
   document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
-  /**
-   * Attach click event listeners to all "Add to Cart" buttons.
-   * Each button uses a data attribute to identify the product being added.
-   */
+  // Add "Add to Cart" button handlers
   document.querySelectorAll(".js-add-to-cart-button")
     .forEach((button) => {
       button.addEventListener("click", () => {
         const productId = button.dataset.productId;
-
-        const quantitySelector = document.querySelector(`.js-quantity-selector[data-product-id="${productId}"]`);
+        const quantitySelector = document.querySelector(
+          `.js-quantity-selector[data-product-id="${productId}"]`
+        );
         const quantity = Number(quantitySelector.value);  
 
-        // Add product to cart with selected quantity
         addToCart(productId, quantity);
       });
-    });
+  });
+
+  // Enable live product search
+  productSearch();
 }

@@ -27,6 +27,13 @@
   }
 }
 
+.products-grid .empty-results-message{
+  padding-left: 10px;
+  padding-top: 10px;
+  grid-column: span;
+  width: 250px;
+}
+
 /* This @media means when the screen width is 1600px or
    less, we will divide the grid into 6 columns. */
 @media (max-width: 1600px) {

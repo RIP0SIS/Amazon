@@ -1,10 +1,111 @@
+<!-- 
+  ===============================
+  Learning Curve & Project Steps
+  ===============================
+
+  1) amazon.html
+  2) data/products.js       → Save the data
+  3) scripts/amazon.js      → Generate the HTML & make it interactive
+  4) data/cart.js           → Create a module, save the cart data
+  
+  5) scripts/checkout.js    → Generate HTML, show cart data on checkout page
+                              (using de-duplication)
+                              Note: After generating HTML in JS, we delete repetitive HTML.
+
+  6) scripts/utils/money.js → Module to format money
+  7) scripts/cart.js        → Add delete functionality for cart items
+  8) scripts/checkout.js    → Use DOM `.remove()` to delete item from page
+  9) data/cart.js           → Add localStorage to save cart data
+  10) External lib (dayjs)  → Show delivery date
+  11) Use ESM version       → External libraries with JS modules
+  12) scripts/checkout.js   → Add delivery options to checkout
+  13) scripts/checkout.js   → Add delivery date display
+  14) data/cart.js          → Add `updateDeliveryOption` function
+  15) scripts/checkout.js   → Use `updateDeliveryOption` on checkout page
+  16) MVC Pattern:
+      - Model     = save & manage data
+      - View      = takes data & renders HTML
+      - Controller= handles user interactions & updates Model/View
+      (Many JS frameworks are based on MVC)
+
+  17) ./checkout/orderSummary.js & paymentSummary.js
+      → Create modules to generate summaries
+  18) ./checkout/paymentSummary.js → Update payment summary
+  19) ./data/cart.js               → Add `totalQuantity()` function
+  20) ./checkout/paymentSummary.js → Show total quantity using `totalQuantity()`
+  21) ./checkout/middleHeaderItem.js
+      → Show cart quantity in header
+  22) Testing:
+      - Manual testing = open webpage, verify output
+      - Automated testing = write code to test code
+
+  23) test/test.html               → Setup automated tests
+
+  NOTE: 
+    - Procedural Programming → organize into functions
+    - Object Oriented Programming → organize into objects
+
+  24) Testing frameworks (external libs):
+      - Jest: https://jestjs.io/docs/getting-started
+      - Mocha: https://mochajs.org/
+      - Jasmine: https://jasmine.github.io/
+
+  25) tests-jasmine/test.html      → Setup Jasmine test file
+  26) Store tests in same folder structure for clarity
+
+  27) data/cart-oop.js & cart-class.js 
+      → Cart class to manage cart data
+  28) scripts/checkout.js 
+      → Use Cart class
+  29) tests-jasmine/cart-class-test.js 
+      → Test Cart class
+
+  ----------------
+  Backend Concepts
+  ----------------
+  - Backend = Server that provides data (API)
+  - API = List of supported URL paths
+
+  30) data/backend-practice.js     → Backend for cart data
+  31) data/products.js             → Backend for products data (using XHR + callback)
+  32) scripts/amazon.js            → Load products from backend
+  33) test/orderSummary-test.js    → Test backend, use `done()` for async
+
+  ----------------
+  Promises & Fetch
+  ----------------
+  - Promise = built-in class for async handling
+  - fetch('url') = GET request → returns Promise
+  - Async/Await = cleaner syntax
+
+  34) data/cart.js                 → Load cart using backend
+  35) scripts/checkout.js          → Use Promises for products
+  36) data/products.js             → Use fetch()
+  37) data/products.js             → Handle fetch errors (try-catch)
+  38) data/order.js                → Backend for order data
+  39) scripts/checkout.js          → Use backend for order data
+  40) scripts/orderDisplay.js      → Display orders with backend
+
+  ----------------
+  URL Parameters
+  ----------------
+  - Format: ?property=value&another=value
+  - Use `new URL()` to extract params
+
+  41) tracking.html                → Extract URL parameters with JS
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
     <title>Amazon Project</title>
+
+    <!-- This code is needed for responsive design to work.
+      (Responsive design = make the website look good on
+      smaller screen sizes like a phone or a tablet). -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Google Fonts: Roboto -->
+    <!-- Load a font called Roboto from Google Fonts. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,48 +113,51 @@
       rel="stylesheet"
     />
 
-    <!-- Shared & page-specific styles -->
+    <!-- Here are the CSS files for this page. -->
     <link rel="stylesheet" href="styles/shared/general.css" />
     <link rel="stylesheet" href="styles/shared/amazon-header.css" />
     <link rel="stylesheet" href="styles/pages/amazon.css" />
     <link rel="stylesheet" href="styles/shared/amazon-second-header.css" />
   </head>
   <body>
-    <!-- Primary header -->
     <div class="amazon-header js-amazon-header">
       <div class="amazon-header-left-section">
         <a href="amazon.html" class="header-link">
           <img class="amazon-logo" src="images/amazon-logo-white.png" />
-          <img class="amazon-mobile-logo" src="images/amazon-mobile-logo-white.png" />
+          <img
+            class="amazon-mobile-logo"
+            src="images/amazon-mobile-logo-white.png"
+          />
         </a>
       </div>
 
       <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search" />
-        <button class="search-button">
+        <input class="search-bar js-search-bar" type="text" placeholder="Search" />
+
+        <button class="search-button js-search-button">
           <img class="search-icon" src="images/icons/search-icon.png" />
         </button>
       </div>
 
       <div class="amazon-header-right-section">
-        <a class="flag-link header-link" href="amazon.html">
+        <a
+          class="flag-link header-link"
+          href="amazon.html"
+        >
           <img class="flag-icon" src="images/flag.png" alt="flag" />
           <span class="flag-text">EN</span>
-        </a>
+        </a>   
         <div class="language-selector">
-          <img src="images/icons/caret-down-white-icon.svg" alt="▼" class="caret-down-icon">
+            <img src="images/icons/caret-down-white-icon.svg" alt="▼" class="caret-down-icon">
           <div class="language-dropdown">
-            <div>English - EN</div>
+            <div data-lang="en">English - EN</div>
           </div>
         </div>
 
-        <div class="orders-link header-link coming-soon">
+        <a class="orders-link header-link" href="orders.html">
           <span class="returns-text">Returns</span>
           <span class="orders-text">& Orders</span>
-          <div class="coming-soon-dropdown">
-            <div>Coming Soon</div>
-          </div>
-        </div>
+        </a>
 
         <a class="cart-link header-link" href="checkout.html">
           <img class="cart-icon" src="images/icons/cart-icon.png" />
@@ -63,7 +167,6 @@
       </div>
     </div>
 
-    <!-- Secondary navigation -->
     <div class="amazon-second-header js-amazon-second-header">
       <div class="secondary-header-left-section">
         <a class="main-second-header-link" href="amazon.html">
@@ -76,18 +179,21 @@
       </div>
 
       <div class="secondary-header-right-section">
-        <a class="second-header-link" href="./images/appliance-instructions.png" target="_blank">
+        <a class="second-header-link" href="./images/appliance-instructions.png"
+        target="_blank">
           Help
         </a>
       </div>
+
     </div>
 
-    <!-- Product grid (JS will populate) -->
     <div class="main">
-      <div class="products-grid js-products-grid"></div>
+      <!-- Using js -->
+      <div class="products-grid js-products-grid">
+      </div>
     </div>
 
-    <!-- Entry point script -->
-    <script type="module" src="scripts/amazon.js"></script>
+    <script type="module" src="scripts/amazon.js">//Then show it on webpage</script>
+
   </body>
 </html>

@@ -1,26 +1,24 @@
-// Cart data storage
+// Cart module - handles cart state, storage, and updates
 export let cart;
-loadFromStorage(); // Initialize cart from localStorage
 
-// Load cart from localStorage (fallback to empty array)
+// Load cart from localStorage on module load
+loadFromStorage();
+
 export function loadFromStorage() {
   cart = JSON.parse(localStorage.getItem("cart")) || [];
 }
 
-// Get total quantity of all items
 export function totalQuantity() {
-  return cart.reduce((acc, item) => acc + item.quantity, 0);
+  return cart.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
 }
 
-// Save current cart to localStorage
 function saveToStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// Track active timeout IDs for "Added to cart" messages
+// Track active timeouts for "added to cart" messages
 const timeoutIds = {};
 
-// Show temporary "Added to cart" message
 function showAddedToCartMessage(productId) {
   const element = document.querySelector(`.js-added-to-cart-${productId}`);
   if (!element) return;
@@ -35,11 +33,10 @@ function showAddedToCartMessage(productId) {
     element.classList.remove("active");
     delete timeoutIds[productId];
   }, 2000);
-}
+} 
 
-// Add product to cart or update its quantity
 export function addToCart(productId, quantity = 1) {
-  let matchingItem = cart.find(item => item.productId === productId);
+  let matchingItem = cart.find(cartItem => productId === cartItem.productId);
 
   if (matchingItem) {
     matchingItem.quantity += quantity;
@@ -47,38 +44,36 @@ export function addToCart(productId, quantity = 1) {
     cart.push({
       productId,
       quantity,
-      deliveryOptions: '1'
+      deliveryOptionId: "1" // default option
     });
   }
-
   saveToStorage();
   showAddedToCartMessage(productId);
+
   window.dispatchEvent(new Event("cartUpdated"));
 }
 
-// Remove product from cart
 export function removeFromCart(productId) {
-  cart = cart.filter(item => item.productId !== productId);
+  cart = cart.filter(cartItem => cartItem.productId !== productId);
   saveToStorage();
   window.dispatchEvent(new Event("cartUpdated"));
 }
 
-// Update delivery option for a specific product
 export function updateDeliveryOption(productId, deliveryOptionId) {
-  const validIds = ['1', '2', '3'];
+  const validIds = ["1", "2", "3"];
   if (!validIds.includes(deliveryOptionId)) return false;
 
-  let matchingItem = cart.find(item => item.productId === productId);
+  let matchingItem = cart.find(cartItem => productId === cartItem.productId);
   if (matchingItem) {
-    matchingItem.deliveryOptions = deliveryOptionId;
+    matchingItem.deliveryOptionId = deliveryOptionId;
     saveToStorage();
   }
   return true;
 }
 
-// Update quantity for a specific product
+// Update item quantity in the cart
 export function updateQuantity(productId, quantity) {
-  let matchingItem = cart.find(item => item.productId === productId);
+  let matchingItem = cart.find(cartItem => productId === cartItem.productId);
 
   if (matchingItem) {
     matchingItem.quantity = quantity;
@@ -86,4 +81,11 @@ export function updateQuantity(productId, quantity) {
   } else {
     console.error(`Product with ID ${productId} not found in cart.`);
   }
+}
+
+// Fetch latest cart from backend (demo endpoint)
+export async function loadCart() {
+  const response = await fetch("https://supersimplebackend.dev/Cart");
+  const data = await response.text();
+  console.log(data);
 }

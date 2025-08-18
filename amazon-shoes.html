@@ -4,6 +4,7 @@
     <title>Amazon Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Load a font called Roboto from Google Fonts. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,6 +12,7 @@
       rel="stylesheet"
     />
 
+    <!-- Here are the CSS files for this page. -->
     <link rel="stylesheet" href="styles/shared/general.css" />
     <link rel="stylesheet" href="styles/shared/amazon-header.css" />
     <link rel="stylesheet" href="styles/pages/amazon.css" />
@@ -29,30 +31,31 @@
       </div>
 
       <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search" />
-        <button class="search-button">
+        <input class="search-bar js-search-bar" type="text" placeholder="Search" />
+
+        <button class="search-button js-search-button">
           <img class="search-icon" src="images/icons/search-icon.png" />
         </button>
       </div>
 
       <div class="amazon-header-right-section">
-        <a class="flag-link header-link" href="amazon-shoes.html">
+        <a
+          class="flag-link header-link"
+          href="amazon-shoes.html"
+        >
           <img class="flag-icon" src="images/flag.png" alt="flag" />
           <span class="flag-text">EN</span>
         </a>
         <div class="language-selector">
-          <img src="images/icons/caret-down-white-icon.svg" alt="▼" class="caret-down-icon">
+            <img src="images/icons/caret-down-white-icon.svg" alt="▼" class="caret-down-icon">
           <div class="language-dropdown">
             <div data-lang="en">English - EN</div>
           </div>
         </div>
-        <div class="orders-link header-link coming-soon">
+        <a class="orders-link header-link" href="orders.html">
           <span class="returns-text">Returns</span>
           <span class="orders-text">& Orders</span>
-          <div class="coming-soon-dropdown">
-            <div>Coming Soon</div>
-          </div>
-        </div>
+        </a>
 
         <a class="cart-link header-link" href="checkout.html">
           <img class="cart-icon" src="images/icons/cart-icon.png" />
@@ -74,15 +77,20 @@
       </div>
 
       <div class="secondary-header-right-section">
-        <a class="second-header-link" href="./images/appliance-instructions.png" target="_blank">
+        <a class="second-header-link" href="./images/appliance-instructions.png"
+        target="_blank">
           Help
         </a>
       </div>
+
     </div>
 
     <div class="main">
-      <div class="products-grid js-products-grid"></div>
+      <!-- Using js -->
+      <div class="products-grid js-products-grid">
+      </div>
     </div>
-    <script type="module" src="./scripts/amazon-categories/amazon-shoes.js"></script>
+    <script type="module" src="./scripts/amazon-categories/amazon-shoes.js">//Then show it on webpage</script>
+
   </body>
 </html>

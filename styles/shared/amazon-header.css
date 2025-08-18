@@ -162,7 +162,7 @@
 }
 
 .language-dropdown > div {
-  padding: 6px 10px;
+  padding: 8px 12px;
   cursor: pointer;
   color: #111;
   font-size: 14px;
@@ -176,7 +176,6 @@
 .orders-link {
   color: white;
   margin-left: 12px;
-  position: relative;
 }
 
 .returns-text {
@@ -189,33 +188,6 @@
   font-size: 15px;
   font-weight: 700;
 }
-
-.coming-soon-dropdown {
-  display: none;
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;           
-  min-width: 140px;
-  padding: 6px 0;
-  background: #ffffff;
-  color: #111111;
-  border-radius: 6px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-  z-index: 800;
-  white-space: nowrap;
-}
-
-.coming-soon-dropdown > div {
-  padding: 6px 10px;
-  cursor: default;
-  color: #111;
-  font-size: 14px;
-}
-
-.coming-soon:hover .coming-soon-dropdown {
-  display: block;
-}
-
 
 .cart-link {
   color: white;
