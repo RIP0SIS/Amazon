@@ -1,6 +1,8 @@
-# Amazon Clone – E-Commerce Frontend
+# Amazon Clone – Full-Stack E-Commerce Project  
 
-A responsive e-commerce frontend inspired by Amazon, built with HTML, CSS, and JavaScript. This project features a fully functional shopping cart, a dynamic checkout page, and interactive product listings with a comprehensive suite of unit and integration tests using Jasmine.
+A responsive **Amazon-style e-commerce clone** built with **HTML, CSS, and JavaScript** for the frontend, and powered by a **live backend API** for product data, cart management, and order processing.  
+
+This project demonstrates **frontend engineering skills** (UI, DOM manipulation, responsive design) combined with **backend integration** (fetch requests, JSON handling, and async workflows).  
 
 ---
 
@@ -9,6 +11,7 @@ A responsive e-commerce frontend inspired by Amazon, built with HTML, CSS, and J
 - [Features](#features)
 - [Folder Structure](#folder-structure)
 - [Technologies Used](#technologies-used)
+- [Backend Integration](#backend-integration)
 - [Setup & Installation](#setup--installation)
 - [Testing](#testing)
 - [Functionality Details](#functionality-details)
@@ -24,67 +27,119 @@ A responsive e-commerce frontend inspired by Amazon, built with HTML, CSS, and J
 
 ## Features
 
-* **Fully Functional Cart System**
-    Allows users to add, remove, and update product quantities in the shopping cart.
+### 🔹 Frontend
+- **Fully Functional Cart System** – add, remove, and update product quantities.  
+- **Persistent Storage** – cart state saved in `localStorage`.  
+- **Dynamic Checkout Page** – updates order and payment summary in real-time.  
+- **Delivery Option Selection** – choose different delivery dates per item.  
+- **Responsive Product Grid** – CSS Grid layout adapts for mobile & desktop.  
+- **Sticky Header with Scroll Effect** – header hides/reappears smoothly.  
+- **Comprehensive Testing** – Jasmine tests for reliability.  
 
-* **Persistent Storage**
-    Uses `localStorage` to save the cart's state, so items are not lost between sessions.
-
-* **Dynamic Checkout Page**
-    Features a detailed order summary and a payment summary that updates in real-time.
-
-* **Delivery Option Selection**
-    Users can choose different delivery dates for each item in their cart, and the costs update accordingly.
-
-* **Responsive Product Grid**
-    The product layout is built with CSS Grid, adapting smoothly from multi-column layouts on desktops to a single column on mobile devices.
-
-* **Sticky Header with Scroll Effect**
-    The header remains visible at the top but hides on scroll-down to maximize screen space for content, reappearing on scroll-up.
-
-* **Comprehensive Testing**
-    Includes a full suite of unit and integration tests written with the Jasmine framework to ensure code reliability.
+### 🔹 Backend
+- **Live Product Data** – products are fetched from the backend instead of hardcoding.  
+- **Cart API** – mock cart data from backend (`/cart`).  
+- **Orders API** – checkout triggers a `POST /orders` request with cart details.  
+- **Greeting API** – demo API endpoints (`/greeting`) to test POST/GET requests.  
+- **Image Hosting** – product and sample images come directly from the backend.  
 
 ---
 
-
 ## Folder Structure
 ```
-amazon-clone/
-│
-├─ data/
-│   ├─ cart.js
-│   ├─ deliveryOptions.js
-│   ├─ products.js
-│   ├─ cartTest.js
-│   └─ productTest.js
-│
-├─ scripts/
-│   ├─ checkout/
-│   │   ├─ orderSummary.js
-│   │   └─ paymentSummary.js
-│   └─ utils/
-│       └─ money.js
-│
-├─ styles/
-│   ├─ main.css
-│   ├─ checkout.css
-│   └─ header.css
-│
-├─ tests/
-│   └─ test.html  ← Jasmine Spec Runner
-│
-├─ checkout.html
-└─ index.html
+.
+├── backend/
+├── data/
+│   ├── cart-class.js
+│   ├── cart-oop.js
+│   ├── cart.js
+│   ├── deliveryOptions.js
+│   ├── orders.js
+│   └─ products.js
+├── images/
+├── scripts/
+│   ├── amazon/
+│   ├── amazon-categories/
+│   ├── checkout/
+│   ├── order/
+│   ├── utils/
+│   ├── amazon.js
+│   ├── checkout.js
+│   ├── ordersDisplay.js
+│   └─ tracking.js
+├── styles/
+├── tests/
+├── amazon-appliances.html
+├── amazon-clothing.html
+├── amazon-shoes.html
+├── amazon.html
+├── checkout.html
+├── image.png
+├── index.html
+├── orders.html
+├── tracking.html
+└─ README.md
+
 ```
 
 
 ---
 
 ## Technologies Used
-- **HTML5 & CSS3** – markup and styling, including responsive design and CSS Grid
-- **JavaScript (ES6 Modules)** – interactive features, cart functionality, and utilities
-- **Jasmine 5** – unit and integration testing
+- **Frontend:** HTML5, CSS3 (CSS Grid, media queries), Vanilla JavaScript (ES6 Modules)  
+- **Backend API:** [SuperSimpleDev Backend](https://supersimplebackend.dev/documentation)  
+- **Testing:** Jasmine 5  
+
+---
+
+## Backend Integration  
+
+The project uses a **live backend API** hosted at:  https://supersimpledevbackend.dev
+
+### Key Endpoints  
+
+| Method | Endpoint            | Purpose |
+|--------|---------------------|---------|
+| `GET`  | `/products`         | Fetches all product data used in the grid |
+| `GET`  | `/products/first`   | Returns the first product (demo use) |
+| `GET`  | `/cart`             | Loads a mock cart |
+| `POST` | `/orders`           | Creates a new order with the cart data |
+| `GET`  | `/greeting`         | Returns a demo greeting |
+| `POST` | `/greeting`         | Returns a personalized greeting |
+
+### Example: 
+
+Fetching Products
+```javascript
+export async function loadProductsAsyncFetch() {
+  const response = await fetch('https://supersimpledevbackend.dev/products');
+  const data = await response.json();
+  products = data.map((product) => ({
+    ...product,
+    getStarsUrl() {
+      return `images/ratings/rating-${product.rating.stars * 10}.png`;
+    },
+    getPrice() {
+      return `₹${(product.priceCents / 100).toFixed(2)}`;
+    },
+    extraInfoHTML() {
+      return "";
+    }
+  }));
+}
+```
+
+Creating an Order
+```javascript
+async function createOrder(cart) {
+  const response = await fetch('https://supersimpledevbackend.dev/orders', {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ cart })
+  });
+  const order = await response.json();
+  console.log('Order created:', order);
+}
 
 ---
 
@@ -97,12 +152,11 @@ amazon-clone/
     ```
 
 2.  **Open the Project**
-    No build step is required. Simply open the HTML files directly in your web browser.
-    * **Product listing page:** Open `index.html`.
-    * **Checkout page:** Open `checkout.html`.
+    * Open `index.html`to view product listing (products load via backend).
+    * Open `checkout.html`to simulate checkout and order placement.
 
 3.  **Run Tests**
-    * Open `spec-runner.html` in your browser to view the **Jasmine** test results.
+    * Open `test.html` in your browser to view the **Jasmine** test results.
 
 ---
 
