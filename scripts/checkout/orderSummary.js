@@ -122,26 +122,48 @@ export function renderOrderSummary() {
   // Handle save quantity
   document.querySelectorAll('.js-save-link')
     .forEach((link) => {
-      link.addEventListener('click', () => {
-        const productId = link.dataset.productId;
+    link.addEventListener('click', () => 
+      handleSave(link));
+  });
 
-        // Restore labels, hide input + save
-        document.querySelector(`.update-quantity-link[data-product-id="${productId}"]`).classList.remove("active");
-        document.querySelector(`.js-quantity-label[data-product-id="${productId}"]`).classList.remove("active");
-        document.querySelector(`.js-quantity-input[data-product-id="${productId}"]`).classList.remove("active");
-        document.querySelector(`.js-save-link[data-product-id="${productId}"]`).classList.remove("active");
-
-        const quantityData = document.querySelector(`.js-quantity-input[data-product-id="${productId}"]`);
-        const quantity = Number(quantityData.value);
-        
-        updateQuantity(productId, quantity);
-
-        // Re-render UI
-        renderOrderSummary();
-        renderPaymentSummary();
-        window.dispatchEvent(new Event("cartUpdated"));
-      });
+  document.querySelectorAll('.js-quantity-input').forEach((link) => {
+    link.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        handleSave(link);
+      }
     });
+  });
+
+  //Handle the save button
+  function handleSave(link) {
+
+      const productId = link.dataset.productId;
+
+      //show the update link and quantity
+      document.querySelector(
+        `.update-quantity-link[data-product-id="${productId}"]`
+      ).classList.remove("active");
+
+      document.querySelector(`.js-quantity-label[data-product-id="${productId}"]`
+      ).classList.remove("active");
+
+      //hide the input field and save link
+      document.querySelector(`.js-quantity-input[data-product-id="${productId}"]`).classList.remove("active");
+      
+      document.querySelector(`.js-save-link[data-product-id="${productId}"]`).classList.remove("active");
+
+      const quantityData = document.querySelector(`.js-quantity-input[data-product-id="${productId}"]`);
+      const quantity = Number(quantityData.value);
+      
+      updateQuantity(productId, quantity);
+
+      //use MVC to update the UI
+      renderOrderSummary();
+
+      renderPaymentSummary();
+
+      window.dispatchEvent(new Event("cartUpdated"));
+  }
 
   // Handle delete item
   document.querySelectorAll('.js-delete-link')

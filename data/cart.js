@@ -76,8 +76,10 @@ export function updateQuantity(productId, quantity) {
   let matchingItem = cart.find(cartItem => productId === cartItem.productId);
 
   if (matchingItem) {
-    matchingItem.quantity = quantity;
-    saveToStorage();
+    if(quantity >= 1){
+      matchingItem.quantity = quantity;
+      saveToStorage();
+    }
   } else {
     console.error(`Product with ID ${productId} not found in cart.`);
   }
