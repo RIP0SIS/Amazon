@@ -161,8 +161,6 @@ export function renderOrderSummary() {
       renderOrderSummary();
 
       renderPaymentSummary();
-
-      window.dispatchEvent(new Event("cartUpdated"));
   }
 
   // Handle delete item
