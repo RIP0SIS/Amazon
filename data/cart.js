@@ -79,13 +79,11 @@ export function updateQuantity(productId, quantity) {
     if(quantity >= 1){
       matchingItem.quantity = quantity;  //replace
       saveToStorage();
-    } else if (quantity === 0) {
-      return removeFromCart(productId);
-      //return because removeFromCart() also dispatch cartUpdated event
     }
   } else {
     console.error(`Product with ID ${productId} not found in cart.`);
   }
+  window.dispatchEvent(new Event("cartUpdated"));
 }
 
 // Fetch latest cart from backend (demo endpoint)
