@@ -57,6 +57,28 @@
     height: 35px;
     margin-top: 5px;
   }
+
+  .amazon-header-right-section .orders-text{
+    flex: 1;
+  }
+
+  .flag-text, .flag-icon, .flag-link, .caret-down-icon {
+    display: none;
+    pointer-events: none;
+  }
+
+  /* Let the search bar grow */
+  .search-bar {
+    flex: 1;         /* take all available space */
+    width: auto;     /* remove fixed width */
+    max-width: 100%; /* prevent overflow */
+  }
+
+  .amazon-header-middle-section {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .amazon-header-middle-section {
