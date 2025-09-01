@@ -19,9 +19,15 @@ export async function renderProductsGrid(items = products) {
 
   // Filter products by search query
   if (search) {
-    filteredProducts = products.filter((product) => {
-      const keywords = product.keywords.join(" ").toLowerCase();
-      return keywords.includes(search.toLowerCase());
+    // Split by comma → ["hoodies", "robe", "tshirt"]
+  const searchKeywords = search.split(",").map(k => k.trim().toLowerCase());
+
+  filteredProducts = products.filter((product) => {
+    const keywords = product.keywords.join(" ").toLowerCase();
+
+    // Match if ANY search keyword is found in product keywords
+    return searchKeywords.some(keyword => keywords.includes(keyword));
+
     });
   }
 
