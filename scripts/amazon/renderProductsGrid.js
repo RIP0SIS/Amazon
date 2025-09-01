@@ -20,8 +20,8 @@ export async function renderProductsGrid(items = products) {
   // Filter products by search query
   if (search) {
     filteredProducts = products.filter((product) => {
-      const name = product.name.toLowerCase();
-      return name.includes(search.toLowerCase());
+      const keywords = product.keywords.join(" ").toLowerCase();
+      return keywords.includes(search.toLowerCase());
     });
   }
 
