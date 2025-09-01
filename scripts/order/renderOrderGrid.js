@@ -116,7 +116,7 @@ export async function renderOrdersGrid() {
           </button>
         </div>
         <div class="product-actions">
-          <a href="tracking.html?orderId=${order.id}&productId=${product.id}">
+          <a href="tracking.html?orderId=${order.id}&productId=${product.id}" class="track-package-link">
             <button class="track-package-button button-secondary">
               Track package
             </button>

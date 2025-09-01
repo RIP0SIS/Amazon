@@ -188,13 +188,17 @@
   width: 100%;
   font-size: 15px;
   padding: 8px;
+  margin-bottom: 10px;
 }
 .track-package-button:hover {
   background-color: #f3f4f6;
 }
 
+.track-package-link {
+  text-decoration: none;
+}
+
 .cancel-order-button {
-  margin-top: 20px;
   width: 100%;
   font-size: 15px;
   padding: 8px;
@@ -227,7 +231,7 @@
     margin-bottom: 30px;
   }
 
-  .track-package-button {
+  .track-package-button, .cancel-order-button {
     width: 140px;
   }
 }
@@ -264,7 +268,7 @@
     margin-bottom: 70px;
   }
 
-  .track-package-button {
+  .track-package-button, .cancel-order-button {
     width: 100%;
     padding: 12px;
   }
